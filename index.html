@@ -1,0 +1,841 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Booking System</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      .main-head {
+        background-color: #000000;
+        top: 0px;
+        position: sticky;
+        z-index: 1000;
+      }
+
+      .nav-head {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        padding: 12px 0;
+      }
+
+      .nav-head a {
+        text-decoration: none;
+        /* font-size: 22px;
+      padding: 0px 20px;
+      margin: 20px 20px; */
+        margin: 0;
+        padding: 8px 16px;
+        color: white;
+      }
+
+      .nav-head a:hover {
+        background: linear-gradient(to right, #0072ff, #00c6ff);
+        transform: scale(1.05);
+      }
+      @media screen and (max-width: 600px) {
+        .nav-head {
+          /* flex-direction: column; */
+          gap: 12px;
+        }
+
+        .nav-head a {
+          display: block;
+          font-size: 18px;
+          margin: 10px 0;
+        }
+      }
+      .Home {
+        min-height: 100vh;
+        padding-top: 20px;
+      }
+      .Home h3 {
+        margin-top: 0;
+      }
+      .about {
+        padding: 60px;
+        background-color: #f7f9fc;
+        text-align: center;
+      }
+
+      .about h3 {
+        font-size: 36px;
+        margin-bottom: 40px;
+        color: #007acc;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .about-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 100px;
+        max-width: 1100px;
+        margin: 0 auto;
+        text-align: left;
+      }
+
+      .about-content img {
+        width: 400px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(7, 7, 7, 1);
+      }
+
+      .about-content img:hover {
+        transform: scale(1.05);
+      }
+
+      .about-text {
+        max-width: 600px;
+        font-size: 20px;
+        line-height: 1.7;
+        color: #333;
+      }
+
+      .about-text p {
+        margin-bottom: 20px;
+      }
+
+      .interior {
+        padding: 50px;
+        background-color: #f7f9fc;
+        text-align: center;
+      }
+
+      .interior h3 {
+        font-size: 32px;
+        color: #007acc;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .interior-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .interior-gallery img {
+        width: 100%;
+        max-width: 500px;
+        /* width: 500px; */
+        height: 250px;
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+      }
+
+      .interior-gallery img:hover {
+        transform: scale(1.05);
+      }
+
+      .sec {
+        padding: 20px 20px;
+      }
+      #Home-sec,
+      #about-sec,
+      #interior-sec,
+      #footer {
+        scroll-margin-top: 30px;
+      }
+
+      body {
+        background: rgba(0, 0, 0, 0.7) url(Busimages.jpeg) no-repeat center
+          center fixed;
+        background-size: cover;
+        padding: 20px;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+      }
+
+      .SafeTravelsheading {
+        color: #f7f8f8;
+        font-size: 50px;
+      }
+
+      h1,
+      h2 {
+        color: #07e0f0;
+        font-size: 40px;
+      }
+
+      .section {
+        display: none;
+      }
+
+      .active {
+        display: block;
+      }
+
+      input,
+      select,
+      button {
+        padding: 12px;
+        margin: 10px 0;
+        width: 90%;
+        max-width: 400px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+      }
+
+      button {
+        background: linear-gradient(to right, #00c6ff, #0072ff);
+        color: #fff;
+        padding: 14px 30px;
+        font-size: 15px;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s ease;
+        width: 100%;
+      }
+
+      button:hover {
+        background: linear-gradient(to right, #0072ff, #00c6ff);
+        transform: scale(1.05);
+      }
+
+      .form-box,
+      .confirm-box,
+      .payment-box {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 15px;
+        border-radius: 10px;
+        max-width: 500px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        font-size: 15px;
+      }
+
+      .bus-layout {
+        display: grid;
+        grid-template-columns: 60px 60px 40px 60px 60px;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .seat {
+        background: #fff;
+        border: 2px solid #0ee2f1;
+        border-radius: 6px;
+        text-align: center;
+        line-height: 40px;
+        height: 40px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      .seat:hover {
+        background: #ffe0b2;
+      }
+
+      .seat.selected {
+        background: #0ee2f1;
+        color: white;
+      }
+
+      .aisle {
+        background: transparent;
+        border: none;
+      }
+
+      .info {
+        margin-top: 15px;
+        font-size: 16px;
+      }
+
+      .payment-methods {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 15px;
+      }
+
+      .payment-methods button {
+        background-color: #4caf50;
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      .payment-methods button:hover {
+        background-color: #388e3c;
+      }
+
+      /* Moving bus animation */
+      .road {
+        width: 100%;
+        height: 120px;
+        overflow: hidden;
+        position: relative;
+        margin-top: 40px;
+      }
+
+      .bus {
+        position: absolute;
+        bottom: 0;
+        left: -300px;
+        height: 100px;
+        animation: moveBus 8s linear infinite;
+      }
+
+      #busList {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 24px;
+        height: 500px;
+        overflow-y: auto;
+        padding: 30px;
+        width: 95%;
+        max-width: 1400px;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+      }
+      .loader {
+        display: none;
+        margin-top: 20px;
+        font-weight: bold;
+        color: #d32f2f;
+      }
+
+      .site-footer {
+        background-color: #030303;
+        color: white;
+        padding: 40px 20px 20px;
+        font-size: 16px;
+        margin-top: 60px;
+      }
+
+      .site-footer h3 {
+        font-size: 32px;
+        margin-bottom: 30px;
+        text-align: center;
+        color: #ffffff;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: left;
+      }
+
+      .footer-card h4 {
+        color: #fff;
+        margin-bottom: 8px;
+        font-size: 18px;
+      }
+
+      .footer-card p,
+      .footer-card a {
+        color: #e0e0e0;
+        font-size: 15px;
+        line-height: 1.5;
+        text-decoration: none;
+      }
+
+      .footer-card a:hover {
+        text-decoration: underline;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        margin-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        padding-top: 10px;
+        font-size: 14px;
+        color: #ccc;
+      }
+
+      @media screen and (max-width: 600px) {
+        /* .nav-head a {
+        display: block;
+        margin: 10px 0;
+        font-size: 18px;
+      } */
+
+        .SafeTravelsheading {
+          font-size: 40px;
+        }
+
+        h1,
+        h2 {
+          font-size: 28px;
+        }
+
+        .about-content {
+          flex-direction: column;
+          gap: 30px;
+          text-align: center;
+        }
+
+        .about-content img {
+          width: 100%;
+          max-width: 90%;
+        }
+
+        .interior-gallery img {
+          width: 100%;
+          height: auto;
+        }
+
+        .form-box,
+        .payment-box,
+        .confirm-box {
+          width: 95%;
+          font-size: 13px;
+        }
+
+        .bus-layout {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .seat {
+          height: 36px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="main-head">
+      <nav class="nav-head">
+        <a href="#Home-sec">Home</a>
+        <a href="#about-sec">About</a>
+        <a href="#interior-sec">Interior</a>
+        <a href="#footer">Contact</a>
+      </nav>
+    </header>
+    <section class="sec Home" id="Home-sec">
+      <!-- Homepage Section -->
+      <div id="home" class="section active">
+        <p class="SafeTravelsheading">Welcome to SafeTravels</p>
+        <h2
+          id="travelQuote"
+          style="
+            color: rgb(0, 0, 0);
+            font-style: italic;
+            font-weight: normal;
+            font-size: 35px;
+          "
+        ></h2>
+        <!-- <div class="road">
+  </div><br> -->
+        <br /><br />
+        <button
+          onclick="showSection('booking')"
+          style="padding: 15px 30px; font-size: 20px"
+        >
+          Book a Seat
+        </button>
+      </div>
+      <!-- Booking Form -->
+      <div id="booking" class="section">
+        <h2>Book Your Journey</h2>
+        <div class="form-box">
+          <input type="text" id="name" placeholder="Enter your name" />
+          <select id="from">
+            <option value="">From</option>
+            <option>Bangalore</option>
+            <option>Hyderabad</option>
+            <option>Tamil Nadu</option>
+            <option>Telangana</option>
+            <option>Vishakapatnam</option>
+            <option>Andhra Pradesh</option>
+            <option>Chennai</option>
+            <option>Kadapa</option>
+          </select>
+          <select id="to">
+            <option value="">To</option>
+            <option>Kadapa</option>
+            <option>Chennai</option>
+            <option>Hyderabad</option>
+            <option>Tamil Nadu</option>
+            <option>Telangana</option>
+            <option>Bangalore</option>
+            <option>Vishakapatnam</option>
+            <option>Andhra Pradesh</option>
+          </select>
+          <input
+            type="tel"
+            id="mobile"
+            placeholder="Mobile Number"
+            maxlength="10"
+          />
+          <input type="date" id="journeyDate" />
+
+          <button onclick="showBusOptions()">Search Buses</button>
+        </div>
+      </div>
+
+      <!-- Bus Options -->
+      <div id="busOptions" class="section">
+        <h2>Select a Bus</h2>
+        <div class="form-box" id="busList"></div>
+      </div>
+
+      <!-- Seat Selection -->
+      <div id="seats" class="section">
+        <h2>Select a Seat</h2>
+        <div class="form-box">
+          <div id="userInfo"></div>
+          <div class="bus-layout" id="seatLayout"></div>
+          <div class="info">
+            Selected Seat: <span id="selectedSeat">None</span>
+          </div>
+          <div class="info">Ticket Price: ₹<strong id="price">0</strong></div>
+          <button onclick="goToPayment()">Proceed to Payment</button>
+        </div>
+      </div>
+      <!-- Payment Section -->
+      <div id="payment" class="section">
+        <h2>Choose Payment Method</h2>
+        <div class="payment-box">
+          <p>Total Payable Amount: ₹<strong id="finalAmount">0</strong></p>
+          <div class="payment-methods">
+            <button onclick="simulatePayment('PhonePe')">PhonePe</button>
+            <button onclick="simulatePayment('Google Pay')">Google Pay</button>
+            <button onclick="simulatePayment('Paytm')">Paytm</button>
+          </div>
+          <div class="loader" id="loader">
+            Please wait... Processing your payment...
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirmation Section -->
+      <div id="confirmation" class="section">
+        <h2>Booking Confirmed 🎉</h2>
+        <div class="confirm-box" id="confirmDetails"></div>
+      </div>
+      <script>
+        let selectedSeat = null;
+        let selectedBus = null;
+        let bookingData = {};
+        let seatPrice = 0;
+
+        const buses = [
+          {
+            operator: "APSRTC",
+            type: "A/C Sleeper",
+            time: "9:00 PM",
+            price: 850,
+            img: "APRTC1.png",
+          },
+          {
+            operator: "APSRTC",
+            type: "Non-A/C Seater",
+            time: "7:00 PM",
+            price: 650,
+            img: "APRTC2.png",
+          },
+          {
+            operator: "TNRTC",
+            type: "Non-A/C Seater",
+            time: "6:30 PM",
+            price: 650,
+            img: "TNRTC1.png",
+          },
+          {
+            operator: "TNRTC",
+            type: "A/C Sleeper",
+            time: "11:00 PM",
+            price: 850,
+            img: "TNRTC2.png",
+          },
+          {
+            operator: "KSRTC",
+            type: "A/C Seater",
+            time: "8:00 PM",
+            price: 850,
+            img: "KSRTC1.png",
+          },
+          {
+            operator: "KSRTC",
+            type: "Non-A/C Seater",
+            time: "8:00 PM",
+            price: 700,
+            img: "KSRTC2.png",
+          },
+          {
+            operator: "TSRTC",
+            type: "A/C Seater",
+            time: "10:00 PM",
+            price: 850,
+            img: "TSRTC1.png",
+          },
+          {
+            operator: "TSRTC",
+            type: "Non-A/C Seater",
+            time: "9:00 PM",
+            price: 750,
+            img: "TSRTC2.png",
+          },
+        ];
+
+        const quotes = [
+          "Your safe travel is our top priority.",
+          "Every seat takes you closer to your dreams.",
+          "Comfortable, affordable, and on time!",
+          "Start your journey with confidence.",
+          "Book smart. Travel safe. Ride Safe Travels.",
+        ];
+
+        // Section toggling
+        function showSection(id) {
+          document
+            .querySelectorAll(".section")
+            .forEach((sec) => sec.classList.remove("active"));
+          document.getElementById(id).classList.add("active");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        // Rotate quotes
+        let quoteIndex = 0;
+        setInterval(() => {
+          document.getElementById("travelQuote").textContent =
+            quotes[quoteIndex];
+          quoteIndex = (quoteIndex + 1) % quotes.length;
+        }, 3000);
+
+        // Show available buses
+        function showBusOptions() {
+          const name = document.getElementById("name").value.trim();
+          const from = document.getElementById("from").value;
+          const to = document.getElementById("to").value;
+          const mobile = document.getElementById("mobile").value.trim();
+          const date = document.getElementById("journeyDate").value;
+
+          if (!name || !from || !to || !mobile || !date) {
+            alert("Please fill all fields.");
+            return;
+          }
+          if (from === to) {
+            alert("From and To cannot be the same.");
+            return;
+          }
+          if (!/^\d{10}$/.test(mobile)) {
+            alert("Please enter a valid 10-digit mobile number.");
+            return;
+          }
+
+          bookingData = { name, from, to, mobile, date };
+          const busList = document.getElementById("busList");
+          busList.innerHTML = "";
+
+          buses.forEach((bus, index) => {
+            const div = document.createElement("div");
+            div.style =
+              "display:flex;flex-direction:column;align-items:flex-start;background:#fff;padding:15px;margin:10px;border-radius:12px;cursor:pointer;box-shadow:0 0 10px rgba(0,0,0,0.15);border-left:6px solid #00c6ff; border:2px solid #030303";
+
+            div.onclick = () => selectBus(index);
+
+            div.innerHTML = `
+      <img src="${bus.img}" alt="Bus" style="width:100px;height:70px;border-radius:10px;margin-right:15px;">
+      <div style="text-align:left">
+        <p><strong>Operator:</strong> ${bus.operator}</p>
+        <p><strong>Service:</strong> ${bus.type}</p>
+        <p><strong>Departure:</strong> ${bus.time}</p>
+        <p style="color:green;"><strong>Price: ₹${bus.price}</strong></p>
+      </div>
+    `;
+            busList.appendChild(div);
+          });
+
+          showSection("busOptions");
+        }
+
+        function selectBus(index) {
+          selectedBus = buses[index];
+          seatPrice = selectedBus.price;
+          document.getElementById("userInfo").innerHTML = `
+      <p><strong>${bookingData.name}</strong> | From: ${bookingData.from} → ${bookingData.to} | 📱 ${bookingData.mobile}<br>
+      🚌 ${selectedBus.operator} | ${selectedBus.type} | ${selectedBus.time} | ₹${seatPrice}</p>`;
+          showSection("seats");
+          renderSeats();
+        }
+
+        function renderSeats() {
+          const layout = document.getElementById("seatLayout");
+          layout.innerHTML = "";
+          const seatLabels = [
+            "1W",
+            "2M",
+            "",
+            "3M",
+            "4W",
+            "5W",
+            "6M",
+            "",
+            "7M",
+            "8W",
+            "9W",
+            "10M",
+            "",
+            "11M",
+            "12W",
+            "13W",
+            "14M",
+            "",
+            "15M",
+            "16W",
+            "17W",
+            "18M",
+            "",
+            "19M",
+            "20W",
+          ];
+          seatLabels.forEach((label) => {
+            const seat = document.createElement("div");
+            seat.innerText = label;
+            seat.className = label === "" ? "aisle" : "seat";
+            if (label !== "") {
+              seat.onclick = () => {
+                document
+                  .querySelectorAll(".seat")
+                  .forEach((s) => s.classList.remove("selected"));
+                seat.classList.add("selected");
+                selectedSeat = label;
+                document.getElementById("selectedSeat").textContent = label;
+                document.getElementById("price").textContent = seatPrice;
+              };
+            }
+            layout.appendChild(seat);
+          });
+        }
+
+        function goToPayment() {
+          if (!selectedSeat) {
+            alert("Please select a seat.");
+            return;
+          }
+          bookingData.seat = selectedSeat;
+          document.getElementById("finalAmount").textContent = seatPrice;
+          showSection("payment");
+        }
+
+        function simulatePayment(method) {
+          document.getElementById("loader").style.display = "block";
+          setTimeout(() => {
+            document.getElementById("loader").style.display = "none";
+            showSection("confirmation");
+            document.getElementById("confirmDetails").innerHTML = `
+        <p>👤 Name: <strong>${bookingData.name}</strong></p>
+        <p>🧭 Route: <strong>${bookingData.from}</strong> → ${bookingData.to}</p>
+        <p>🪑 Seat: ${bookingData.seat}</p>
+        <p>🚌 Bus: ${selectedBus.operator} (${selectedBus.type})</p>
+        <p>📅 Date: ${bookingData.date}</p>
+        <p>💰 Paid: ₹${seatPrice} via ${method}</p>
+        <br><p>🎉 Thank you for booking with us!</p>
+      `;
+            setTimeout(() => {
+              showSection("home");
+              selectedSeat = null;
+            }, 4000);
+          }, 3000);
+        }
+
+        // Show welcome quote immediately
+        window.onload = () => {
+          const today = new Date().toISOString().split("T")[0];
+          document.getElementById("journeyDate").setAttribute("min", today);
+          document.getElementById("travelQuote").textContent = quotes[0];
+        };
+      </script>
+    </section>
+    <section class="sec about" id="about-sec">
+      <h3>About</h3>
+      <div class="about-content">
+        <img src="viewimage.jpeg" alt="About SafeTravels Image" />
+        <div class="about-text">
+          <p>
+            <strong>🚌 SafeTravels</strong> is your trusted companion for
+            hassle-free and secure bus ticket booking. Whether you're planning a
+            quick city trip or a long journey across states, we bring you the
+            best options from top operators like
+            <strong>APSRTC, TNRTC, KSRTC,</strong> and <strong>TSRTC</strong> —
+            all in one place.
+          </p>
+          <p>
+            We focus on <strong>convenience, affordability,</strong> and
+            <strong>safety</strong>, allowing you to search routes, compare
+            prices, select your seat, and pay online in just a few clicks. Our
+            real-time seat layout, moving bus animation, and mobile-friendly
+            interface ensure a smooth experience from start to finish.
+          </p>
+          <p>
+            <strong>Why Choose SafeTravels?</strong><br />
+            ✅ Easy online booking<br />
+            ✅ Transparent pricing<br />
+            ✅ Reliable bus operators<br />
+            ✅ Seat selection made simple<br />
+            ✅ Secure payment options<br />
+          </p>
+          <p>
+            <strong>Book smart. Travel safe. Ride with SafeTravels.</strong>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec interior" id="interior-sec">
+      <h3>Interior</h3>
+      <div class="interior-gallery">
+        <img src="seats2.jpeg" alt="seats-image" />
+        <img src="seats4.jpeg" alt="seats-image" />
+        <img src="sleeperseats.jpeg" alt="seats-image" />
+        <img src="seats1.jpeg" alt="seats-image" />
+        <img src="sleeperseats2.jpeg" alt="seats-image" />
+        <img src="seats5.jpeg" alt="seats-image" />
+      </div>
+    </section>
+    <footer class="site-footer" id="footer">
+      <h3>Contact Us</h3>
+      <div class="footer-content">
+        <div class="footer-card">
+          <h4>📧 Email</h4>
+          <p>support@safetravels.com</p>
+        </div>
+        <div class="footer-card">
+          <h4>📞 Phone</h4>
+          <p>+91 xxxxx xxxxx</p>
+        </div>
+        <div class="footer-card">
+          <h4>📍 Address</h4>
+          <p>SafeTravels HQ,<br />2nd Floor,xxxx xxxx,<br />Hyderabad, India</p>
+        </div>
+        <div class="footer-card">
+          <h4>📱 Follow Us</h4>
+          <p>
+            <a href="#">Instagram</a> | <a href="#">Facebook</a> |
+            <a href="#">Twitter</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025 SafeTravels. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
